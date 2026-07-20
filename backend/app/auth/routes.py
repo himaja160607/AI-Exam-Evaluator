@@ -13,9 +13,12 @@ from app.security.password import (
     verify_password
 )
 from app.security.jwt_handler import create_access_token
+from app.auth.role_checker import RoleChecker
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
-
+admin_only = RoleChecker(["Admin"])
+examiner_only = RoleChecker(["Examiner"])
+student_only = RoleChecker(["Student"])
 
 # ---------------- REGISTER ---------------- #
 
@@ -78,4 +81,29 @@ def get_my_profile(current_user: User = Depends(get_current_user)):
         "full_name": current_user.full_name,
         "email": current_user.email,
         "role": current_user.role
+    }
+@router.get("/admin/dashboard")
+def admin_dashboard(
+    current_user=Depends(admin_only)
+):
+    return {
+        "message": f"Welcome Admin {current_user.full_name}"
+    }
+
+
+@router.get("/examiner/dashboard")
+def examiner_dashboard(
+    current_user=Depends(examiner_only)
+):
+    return {
+        "message": f"Welcome Examiner {current_user.full_name}"
+    }
+
+
+@router.get("/student/dashboard")
+def student_dashboard(
+    current_user=Depends(student_only)
+):
+    return {
+        "message": f"Welcome Student {current_user.full_name}"
     }
