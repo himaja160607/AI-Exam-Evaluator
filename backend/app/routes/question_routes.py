@@ -49,3 +49,12 @@ def create_question(
     db.refresh(new_question)
 
     return new_question
+@router.get("/", response_model=list[QuestionResponse])
+def get_all_questions(
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
+
+    questions = db.query(Question).all()
+
+    return questions
