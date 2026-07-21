@@ -116,3 +116,28 @@ def update_question(
     db.refresh(question)
 
     return question
+
+@router.delete("/{question_id}")
+def delete_question(
+    question_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(admin_examiner)
+):
+
+    question = db.query(Question).filter(
+        Question.id == question_id
+    ).first()
+
+    if not question:
+        raise HTTPException(
+            status_code=404,
+            detail="Question not found"
+        )
+
+    db.delete(question)
+
+    db.commit()
+
+    return {
+        "message": "Question deleted successfully"
+    }
