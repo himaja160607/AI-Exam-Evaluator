@@ -58,3 +58,21 @@ def get_all_questions(
     questions = db.query(Question).all()
 
     return questions
+@router.get("/{question_id}", response_model=QuestionResponse)
+def get_question_by_id(
+    question_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
+
+    question = db.query(Question).filter(
+        Question.id == question_id
+    ).first()
+
+    if not question:
+        raise HTTPException(
+            status_code=404,
+            detail="Question not found"
+        )
+
+    return question
