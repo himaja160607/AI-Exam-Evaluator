@@ -5,6 +5,7 @@ from app.database.session import get_db
 from app.models.question import Question
 from app.schemas.question_schema import (
     QuestionCreate,
+    QuestionUpdate,
     QuestionResponse
 )
 from app.auth.dependencies import get_current_user
@@ -74,5 +75,44 @@ def get_question_by_id(
             status_code=404,
             detail="Question not found"
         )
+
+    return question
+
+@router.put("/{question_id}", response_model=QuestionResponse)
+def update_question(
+    question_id: int,
+    updated_question: QuestionUpdate,
+    db: Session = Depends(get_db),
+    current_user=Depends(admin_examiner)
+):
+
+    question = db.query(Question).filter(
+        Question.id == question_id
+    ).first()
+
+    if not question:
+        raise HTTPException(
+            status_code=404,
+            detail="Question not found"
+        )
+
+    question.question = updated_question.question
+
+    question.option_a = updated_question.option_a
+    question.option_b = updated_question.option_b
+    question.option_c = updated_question.option_c
+    question.option_d = updated_question.option_d
+
+    question.correct_answer = updated_question.correct_answer
+
+    question.marks = updated_question.marks
+
+    question.difficulty = updated_question.difficulty
+
+    question.subject = updated_question.subject
+
+    db.commit()
+
+    db.refresh(question)
 
     return question
