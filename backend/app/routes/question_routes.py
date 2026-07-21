@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from app.database.session import get_db
@@ -57,6 +57,18 @@ def get_all_questions(
 ):
 
     questions = db.query(Question).all()
+
+    return questions
+@router.get("/search", response_model=list[QuestionResponse])
+def search_questions(
+    keyword: str = Query(...),
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
+
+    questions = db.query(Question).filter(
+        Question.question.ilike(f"%{keyword}%")
+    ).all()
 
     return questions
 @router.get("/{question_id}", response_model=QuestionResponse)
