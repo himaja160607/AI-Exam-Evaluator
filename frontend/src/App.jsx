@@ -5,6 +5,8 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import StudentDashboard from "./pages/Student/StudentDashboard";
 import ExaminerDashboard from "./pages/Examiner/ExaminerDashboard";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
   return (
     <BrowserRouter>
@@ -17,18 +19,30 @@ function App() {
         />
 
         <Route
-          path="/admin"
-          element={<AdminDashboard />}
+            path="/admin"
+            element={
+                <ProtectedRoute allowedRole="Admin">
+                    <AdminDashboard/>
+                </ProtectedRoute>
+            }
         />
 
         <Route
-          path="/student"
-          element={<StudentDashboard />}
+            path="/student"
+            element={
+            <ProtectedRoute allowedRole="Student">
+                <StudentDashboard />
+            </ProtectedRoute>
+            }
         />
 
         <Route
-          path="/examiner"
-          element={<ExaminerDashboard />}
+            path="/examiner"
+            element={
+            <ProtectedRoute allowedRole="Examiner">
+                <ExaminerDashboard />
+            </ProtectedRoute>
+            }
         />
 
       </Routes>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import api from "../../services/api";
 
@@ -7,6 +8,8 @@ function Login() {
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const [role, setRole] = useState("Student");
 
@@ -27,12 +30,25 @@ function Login() {
         const token = response.data.access_token;
 
         const user = response.data.user;
+        if (role !== user.role) {
+            alert("Selected role doesn't match your account.");
+            return;
+        }
 
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
 
         console.log("Login Successful");
         console.log(user);
+        if (user.role === "Admin") {
+            navigate("/admin");
+        }
+        else if (user.role === "Student") {
+            navigate("/student");
+        }
+        else if (user.role === "Examiner") {
+            navigate("/examiner");
+        }
 
     }
     catch (error) {
