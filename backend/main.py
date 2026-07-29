@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes.question_routes import router as question_router
 from app.auth.routes import router as auth_router
+from app.routes.dashboard_routes import router as dashboard_router
+from app.routes.user_routes import router as user_router
 
 app = FastAPI(
     title="AI Proctored Examination Platform",
@@ -18,6 +20,8 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(question_router)
+app.include_router(dashboard_router)
+app.include_router(user_router)
 
 
 @app.get("/")

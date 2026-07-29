@@ -6,6 +6,7 @@ import StudentDashboard from "./pages/Student/StudentDashboard";
 import ExaminerDashboard from "./pages/Examiner/ExaminerDashboard";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import Users from "./pages/Admin/Users";
 
 function App() {
   return (
@@ -26,7 +27,15 @@ function App() {
                 </ProtectedRoute>
             }
         />
-
+        
+        <Route
+            path="/users"
+            element={
+            <ProtectedRoute allowedRole="Admin">
+                <Users />
+            </ProtectedRoute>
+            }
+        />
         <Route
             path="/student"
             element={
