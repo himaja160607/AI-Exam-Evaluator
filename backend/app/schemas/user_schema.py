@@ -36,3 +36,17 @@ class UserListResponse(BaseModel):
 
     class Config:
         from_attributes = True
+class UserListResponse(BaseModel):
+    id: int
+    full_name: str
+    email: str
+    role: str
+
+    class Config:
+        from_attributes = True
+
+
+class UserUpdate(BaseModel):
+    full_name: str
+    email: EmailStr
+    role: UserRole
