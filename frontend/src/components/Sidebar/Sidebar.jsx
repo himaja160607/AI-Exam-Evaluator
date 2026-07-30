@@ -20,6 +20,10 @@ function Sidebar() {
                     Users
                 </li>
 
+                <li onClick={() => navigate("/questions")}>
+                    Question Bank
+                </li>
+
                 <li>Exams</li>
 
                 <li>Results</li>
