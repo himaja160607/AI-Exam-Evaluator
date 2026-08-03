@@ -28,6 +28,10 @@ function Sidebar() {
                     Exams
                 </li>
 
+                <li onClick={() => navigate("/assign-questions")}>
+                     Assign Questions
+                </li>
+
                 <li>Results</li>
 
                 <li>Settings</li>

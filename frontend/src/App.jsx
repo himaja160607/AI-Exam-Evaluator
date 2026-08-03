@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Users from "./pages/Admin/Users";
 import Questions from "./pages/Admin/Questions";
 import Exams from "./pages/Exam/Exams";
+import AssignQuestions from "./pages/AssignQuestions/AssignQuestions";
 
 function App() {
   return (
@@ -71,6 +72,15 @@ function App() {
             element={
                 <ProtectedRoute allowedRole="Admin">
                     <Exams />
+                </ProtectedRoute>
+            }
+        />
+
+        <Route
+            path="/assign-questions"
+            element={
+                <ProtectedRoute allowedRole="Admin">
+                    <AssignQuestions />
                 </ProtectedRoute>
             }
         />

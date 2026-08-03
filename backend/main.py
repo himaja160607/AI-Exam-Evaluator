@@ -5,6 +5,7 @@ from app.auth.routes import router as auth_router
 from app.routes.dashboard_routes import router as dashboard_router
 from app.routes.user_routes import router as user_router
 from app.routes.exam_routes import router as exam_router
+from app.routes.exam_question_routes import router as exam_question_router
 
 app = FastAPI(
     title="AI Proctored Examination Platform",
@@ -24,6 +25,7 @@ app.include_router(question_router)
 app.include_router(dashboard_router)
 app.include_router(user_router)
 app.include_router(exam_router)
+app.include_router(exam_question_router)
 
 
 @app.get("/")

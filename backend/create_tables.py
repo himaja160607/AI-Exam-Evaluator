@@ -5,6 +5,7 @@ from app.database.base import Base
 from app.models.user import User
 from app.models.question import Question
 from app.models.exam import Exam
+from app.models.exam_question import ExamQuestion
 
 Base.metadata.create_all(bind=engine)
 
