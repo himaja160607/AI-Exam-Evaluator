@@ -8,6 +8,7 @@ import ExaminerDashboard from "./pages/Examiner/ExaminerDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Users from "./pages/Admin/Users";
 import Questions from "./pages/Admin/Questions";
+import Exams from "./pages/Exam/Exams";
 
 function App() {
   return (
@@ -62,6 +63,15 @@ function App() {
             <ProtectedRoute allowedRole="Examiner">
                 <ExaminerDashboard />
             </ProtectedRoute>
+            }
+        />
+
+        <Route
+            path="/exams"
+            element={
+                <ProtectedRoute allowedRole="Admin">
+                    <Exams />
+                </ProtectedRoute>
             }
         />
 

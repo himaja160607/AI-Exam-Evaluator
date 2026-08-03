@@ -24,7 +24,9 @@ function Sidebar() {
                     Question Bank
                 </li>
 
-                <li>Exams</li>
+                <li onClick={() => navigate("/exams")}>
+                    Exams
+                </li>
 
                 <li>Results</li>
 
